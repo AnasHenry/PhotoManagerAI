@@ -1,31 +1,34 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const Register = () => {
+const ClientRegister = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [message, setMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/register-photographer', {
+      const response = await axios.post('http://localhost:5000/register-client', {
         name,
         email,
+        phone,  
       });
 
       setMessage(response.data.message);
       setName('');
       setEmail('');
+      setPhone('');
     } catch (error) {
-      setMessage('Error registering photographer');
+      setMessage('Error registering client');
     }
   };
 
   return (
     <div>
-      <h1>Photographer Register</h1>
+      <h1>Client Register</h1>
       <form onSubmit={handleSubmit}>
         <label>Name:</label>
         <input
@@ -43,6 +46,14 @@ const Register = () => {
           required
         />
         <br />
+        <label>Phone Number:</label>
+        <input
+          type="tel"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          required
+        />
+        <br />
         <button type="submit">Register</button>
       </form>
       <p>{message}</p>
@@ -50,4 +61,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default ClientRegister;
