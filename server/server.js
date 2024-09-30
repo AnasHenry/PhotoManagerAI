@@ -52,7 +52,7 @@ app.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // Find the user by email
+  
     const user = await User.findOne({ email });
 
     if (!user) {
