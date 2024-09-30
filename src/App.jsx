@@ -4,6 +4,7 @@ import ClientRegister from './components/ClientRegister';
 import Register from './components/register';
 import Login from './components/Login';
 import Landing from './components/Landing';
+import UserLogin from './components/UserLogin';
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
           <Route path="/userselect" element={<UserCon />} />
           <Route path="/register-client" element={<ClientRegister />} />
           <Route path="/register" element={<Register />} />
-          <Route path='/login' element={<Login/>}/>
+          <Route path='/adminlogin' element={<Login/>}/>
+          <Route path ='/login' element={<UserLogin/>}/>
         </Routes>
       </div>
     </Router>
