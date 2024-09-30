@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap'); 
+
+.register-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-image: url("../assets/p1.jpg");
+  background-size: cover;
+  background-position: center;
+  font-family: "Open Sans", sans-serif;
+}
+
+.register-section h1 {
+  font-size: 2.5rem;
+  color: #ffffff;
+  margin-bottom: 20px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+/* Form container */
+.register-form {
+  background: rgba(
+    255,
+    255,
+    255,
+    0.2
+  ); /* Light transparency for the glass effect */
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(10px); /* The blur for the glass effect */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  border: 1px solid rgba(255, 255, 255, 0.18); /* Subtle border */
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+}
+
+/* Input labels */
+.register-form h4 {
+  font-size: 1.1rem;
+  font-family: "Open Sans", sans-serif;
+  color: #ECDFCC;
+  align-self: flex-start;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+/* Input fields */
+.register-form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #d3d3d3;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  color: #333;
+  transition: border-color 0.3s ease;
+}
+
+.register-form input[type="text"]:focus,
+.register-form input[type="email"]:focus {
+  border-color: #2a9d8f;
+  outline: none;
+}
+
+/* Submit button */
+.register-form button {
+  width: 100%;
+  padding: 12px 15px;
+  background-color: #ECDFCC;
+  color: #181C14;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.register-form button:hover {
+  background-color: #1d7874;
+  color: #ECDFCC;
+}
+
+.register-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease;
+}
+
+.register-popup-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.3);
+  position: relative;
+  text-align: center;
+}
+
+.register-popup-content p {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.register-popup.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.register-popup.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Message display */
+.p {
+  margin-top: 20px;
+  font-size: 1.1rem;
+  color: #1d3557;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  form {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .section h1 {
+    font-size: 2rem;
+  }
+}
