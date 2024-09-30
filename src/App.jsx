@@ -3,12 +3,14 @@ import UserCon from './components/UserCon';
 import ClientRegister from './components/ClientRegister';
 import Register from './components/register';
 import Login from './components/Login';
+import Landing from './components/Landing';
 
 function App() {
   return (
     <Router>
       <div className="App">
         <Routes>
+          <Route path="/" element={<Landing /> } />
           <Route path="/userselect" element={<UserCon />} />
           <Route path="/register-client" element={<ClientRegister />} />
           <Route path="/register" element={<Register />} />
