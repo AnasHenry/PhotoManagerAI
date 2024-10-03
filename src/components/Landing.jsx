@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
-import "./Landing.css";
 import { useNavigate } from "react-router-dom";
+import "./Landing.css";
+import Hero from "./Hero";
+import About from "./About";
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -23,7 +25,7 @@ const Landing = () => {
     if (isHovered) {
       // Start rotating when hovered
       intervalRef.current = setInterval(() => {
-        setAngle((prevAngle) => prevAngle + 0.1); // Increment angle continuously
+        setAngle((prevAngle) => prevAngle + 0.1); 
       }, 20); // Approximately 60 FPS
     } else {
       clearInterval(intervalRef.current); // Stop when not hovered
@@ -53,29 +55,30 @@ const Landing = () => {
       </nav>
 
       {/* Hero Section */}
-      <section
-        className='hero'
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}>
-        <div
-          className='bg-image'
-          style={{
-            transform: `rotate(${angle}deg)`, // Rotate based on angle state
-            transition: isHovered ? "none" : "transform 1s linear", // Smooth transition only when not hovering
-          }}></div>
-        <div className='hero-content'>
-          <h1>Welcome to Our Client Platform</h1>
-          <p>Your gateway to the best services</p>
-          <a href='#about' className='cta-button'>
-            Learn More
-          </a>
-        </div>
-      </section>
-      <section id='about' className='about'>
+      <Hero />
+      <About />
+      {/* <section id='about' className='about'>
         <br />
         <h2>About Us</h2>
         <p>We are dedicated to providing top-notch services to our clients.</p>
-      </section>
+        <div className='card-container'>
+          <Card
+            imageUrl= {imageUrl}
+            title='Card Title'
+            description='THIS IS A SAMPLE .'
+          />
+          <Card
+            imageUrl= {imageUrl}
+            title='Card Title'
+            description='THIS IS A SAMPLE .'
+          />
+          <Card
+            imageUrl= {imageUrl}
+            title='Card Title'
+            description='THIS IS A SAMPLE .'
+          />
+        </div>
+      </section> */}
 
       {/* Projects Section with flowing text */}
       <section id='projects' className='projects'>

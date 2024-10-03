@@ -1,11 +1,16 @@
-html{
+html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.landing-page {
+  width: 100%;
 }
 
 .navbar {
@@ -32,7 +37,7 @@ html{
 }
 
 .login-button:hover {
-  background-color: #0056b3; /* Darker shade for hover */
+  background-color: #0056b3;
 }
 
 .logo {
@@ -44,7 +49,7 @@ html{
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 20px; /* Adjust the gap between the list items */
+  gap: 20px;
   margin: 0;
   padding: 0;
 }
@@ -69,7 +74,9 @@ html{
   height: 100vh;
   width: 100%;
   align-items: center;
-  background-color: #010101;
+  background-image: url("../assets/land3.jpg");
+  background-size: cover;
+  background-position: center;
   color: #ffffff;
   justify-content: center;
   text-align: center;
@@ -93,22 +100,21 @@ html{
   filter: brightness(90%);
 }
 
-/* .hero:hover .bg-image {
-  transform: rotate(360deg);
-  animation: rotate-bg 100s linear infinite;
-} */
+.card-container {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+}
 
-/* @keyframes rotate-bg {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
+.card-container .card {
+  width: 350px;
+  background-color: #ecdfcc;
+  padding: 5px;
+}
 
 .hero-content h1 {
   position: relative;
+  color: #ecdfcc;
   z-index: 1;
   font-size: 3rem;
   margin-bottom: 1rem;
@@ -142,12 +148,30 @@ html{
 section {
   padding: 3rem 2rem;
   text-align: center;
+  height: 100vh;
 }
 
-.about,
 .projects,
 .contact {
   height: 100vh;
+}
+
+.about {
+  height: 100vh;
+  padding: 50px;
+  background-color: #3c3d37;
+  color: #ecdfcc;
+  text-align: center;
+}
+
+.about h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.about p {
+  font-size: 1.2rem;
+  text-align: center;
 }
 
 .projects {
@@ -177,4 +201,59 @@ section {
 .about {
   background-color: #3c3d37;
   color: #ecdfcc;
+}
+
+/* Customizing the scrollbar for webkit-based browsers */
+::-webkit-scrollbar {
+  width: 12px; /* Width of the entire scrollbar */
+  background-color: #333; /* Scrollbar background color */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: linear-gradient(
+    180deg,
+    #3c3d37,
+    #ecdfcc
+  ); /* Creative gradient track */
+  border-radius: 10px; /* Rounded corners for track */
+  margin: 5px; /* Optional margin between track and scrollbar edges */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #333, #4f4f4f, #666666);
+  /* Gradient for the handle */
+  border-radius: 10px; /* Rounded corners for the handle */
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3); /* Inner shadow for a 3D effect */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    #34322c,
+    #454545
+  ); /* Darker gradient on hover */
+  cursor: pointer; /* Changes to pointer when hovered */
+}
+
+/* Optional: Horizontal scrollbar (if needed) */
+::-webkit-scrollbar-horizontal {
+  height: 8px;
+}
+
+/* Handle for horizontal scroll */
+::-webkit-scrollbar-thumb-horizontal {
+  background: linear-gradient(
+    90deg,
+    #f0a500,
+    #ffbf00
+  ); /* Horizontal gradient for horizontal scrollbar */
+}
+
+/* Edge for older versions of Edge (pre-Chromium) */
+body {
+  scrollbar-color: #f0a500 #3c3d37; /* Thumb color followed by track color */
+  scrollbar-width: thin; /* Width of the scrollbar */
 }

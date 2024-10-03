@@ -1,8 +1,8 @@
-import express from "express";
-import mongoose from "mongoose";
-import bodyParser from "body-parser";
-import cors from "cors";
-import argon2 from "argon2";
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const argon2 = require("argon2");
 
 const app = express();
 app.use(cors());
