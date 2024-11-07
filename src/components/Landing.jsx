@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import "./Landing.css";
 import Hero from "./Hero";
 import About from "./About";
+import Contact  from "./Contact";
+import Project from "./Project";
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -10,9 +12,7 @@ const Landing = () => {
   const [isHovered, setIsHovered] = useState(false);
   const intervalRef = useRef(null);
 
-  // Function to rotate image on hover
   const handleMouseEnter = () => {
-    // setAngle(localStorage.getItem('angle'));
     setIsHovered(true);
   };
 
@@ -49,50 +49,14 @@ const Landing = () => {
             <a href='#contact'>Contact</a>
           </li>
         </ul>
-        <button className='login-button' onClick={() => navigate("/login")}>
+        <button className='login-button' onClick={() => navigate("/adminlogin")}>
           Login
         </button>
       </nav>
-
-      {/* Hero Section */}
       <Hero />
       <About />
-      {/* <section id='about' className='about'>
-        <br />
-        <h2>About Us</h2>
-        <p>We are dedicated to providing top-notch services to our clients.</p>
-        <div className='card-container'>
-          <Card
-            imageUrl= {imageUrl}
-            title='Card Title'
-            description='THIS IS A SAMPLE .'
-          />
-          <Card
-            imageUrl= {imageUrl}
-            title='Card Title'
-            description='THIS IS A SAMPLE .'
-          />
-          <Card
-            imageUrl= {imageUrl}
-            title='Card Title'
-            description='THIS IS A SAMPLE .'
-          />
-        </div>
-      </section> */}
-
-      {/* Projects Section with flowing text */}
-      <section id='projects' className='projects'>
-        <h2>Our Projects</h2>
-        <div className='flow'>
-          <p>Discover our latest work and how we can help you grow.</p>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section id='contact' className='contact'>
-        <h2>Contact Us</h2>
-        <p>Get in touch with us for any queries or services.</p>
-      </section>
+      <Project />
+      <Contact />
     </div>
   );
 };

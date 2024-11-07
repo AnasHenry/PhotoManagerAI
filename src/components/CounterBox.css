@@ -1,0 +1,49 @@
+.counter-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.counter-box {
+  position: relative;
+  background-color: #fff;
+  border: 2px solid #333;
+  padding: 20px;
+  margin: 10px;
+  text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* Prevent overflow */
+}
+
+.counter {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.counter-box p {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.trophy {
+  position: absolute;
+  font-size: 2.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  pointer-events: none; /* Trophies don't interfere with hovering */
+}
+
+.trophy-left {
+  left: -60px; /* Positioning the left trophy outside the box */
+}
+
+.trophy-right {
+  right: -60px; /* Positioning the right trophy outside the box */
+}

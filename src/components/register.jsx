@@ -13,7 +13,7 @@ const Register = () => {
   const [popupVisible, setPopupVisible] = useState(false);
   const navigate = useNavigate();
   const handleLoginClick = () => {
-    navigate("/login");
+    navigate("/adminlogin");
   };
 
   const handleSubmit = async (e) => {

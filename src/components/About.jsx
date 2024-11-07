@@ -45,19 +45,15 @@ const About = () => {
       <div className='card-container'>
         <Card
           imageUrl={imageUrl1}
-          title='Card Title'
-          description='Logesh will never experience this. We too >_<'
+          title='Capture Every Moment'
+          description='Seamless AI driven model helps you to organize photos'
         />
         <Card
           imageUrl={imageUrl2}
-          title='Card Title'
-          description="We at Bhuvanesh's Marriage. <3"
+          title='Enhance your photo albums'
+          description='Make attractive albums for your clients'
         />
-        <Card
-          imageUrl={imageUrl3}
-          title='Card Title'
-          description='Ithuku paruthi mootai gudown laye irunthirukulam.'
-        />
+        <Card imageUrl={imageUrl3} title='Better Storage for photos' description='Manage your photos related to your contracts' />
       </div>
     </section>
   );
