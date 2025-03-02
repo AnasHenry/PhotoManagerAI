@@ -1,0 +1,263 @@
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.landing-page {
+  width: 100%;
+  height: 100vh;
+}
+
+.navbar {
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #333;
+  color: #fff;
+}
+
+.login-button {
+  background-color: #ecdfcc; /* Customize color */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 20px;
+}
+
+.login-button:hover {
+  background-color: #0056b3;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-right: auto;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  margin-left: 1.5rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.nav-links a:hover {
+  color: #ecdfcc;
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  align-items: center;
+  background-image: url("../assets/land3.jpg");
+  background-size: cover;
+  background-position: center;
+  color: #ffffff;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.bg-image {
+  position: absolute;
+  width: 650px;
+  height: 650px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  transition: transform 1s ease-out;
+  top: 0;
+  left: 100;
+  background-image: url("../assets/land1.jpg");
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+  filter: brightness(90%);
+}
+
+.card-container {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+}
+
+.card-container .card {
+  width: 350px;
+  background-color: #ecdfcc;
+  padding: 5px;
+}
+
+.hero-content h1 {
+  position: relative;
+  color: #ecdfcc;
+  z-index: 1;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero-content p {
+  position: relative;
+  z-index: 1;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.cta-button {
+  position: relative;
+  padding: 0.75rem 1.5rem;
+  background-color: #f0a500;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1rem;
+  border-radius: 30px;
+  z-index: 1;
+}
+
+.cta-button:hover {
+  background-color: #ffbf00;
+}
+
+/* About, Projects, Contact Sections */
+section {
+  padding: 3rem 2rem;
+  text-align: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.projects,
+.contact {
+  height: 100vh;
+}
+
+.about {
+  height: 100vh;
+  padding: 50px;
+  background-color: #3c3d37;
+  color: #ecdfcc;
+  text-align: center;
+}
+
+.about h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.about p {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.projects {
+  background-color: #697565;
+  color: #1e201e;
+}
+
+.projects .flow {
+  animation: flowText 10s infinite linear;
+}
+
+@keyframes flowText {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Contact */
+.contact {
+  background-color: #ecdfcc;
+  color: #3c3d37;
+}
+
+.about {
+  background-color: #3c3d37;
+  color: #ecdfcc;
+}
+
+/* Customizing the scrollbar for webkit-based browsers */
+::-webkit-scrollbar {
+  width: 12px; /* Width of the entire scrollbar */
+  background-color: #333; /* Scrollbar background color */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: linear-gradient(
+    180deg,
+    #3c3d37,
+    #ecdfcc
+  ); /* Creative gradient track */
+  border-radius: 10px; /* Rounded corners for track */
+  margin: 5px; /* Optional margin between track and scrollbar edges */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #333, #4f4f4f, #666666);
+  /* Gradient for the handle */
+  border-radius: 10px; /* Rounded corners for the handle */
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3); /* Inner shadow for a 3D effect */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    #34322c,
+    #454545
+  ); /* Darker gradient on hover */
+  cursor: pointer; /* Changes to pointer when hovered */
+}
+
+/* Optional: Horizontal scrollbar (if needed) */
+::-webkit-scrollbar-horizontal {
+  height: 8px;
+}
+
+/* Handle for horizontal scroll */
+::-webkit-scrollbar-thumb-horizontal {
+  background: linear-gradient(
+    90deg,
+    #f0a500,
+    #ffbf00
+  ); /* Horizontal gradient for horizontal scrollbar */
+}
+
+/* Edge for older versions of Edge (pre-Chromium) */
+body {
+  scrollbar-color: #f0a500 #3c3d37; /* Thumb color followed by track color */
+  scrollbar-width: thin; /* Width of the scrollbar */
+}

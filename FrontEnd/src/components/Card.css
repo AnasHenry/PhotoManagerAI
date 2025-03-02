@@ -1,0 +1,52 @@
+.card {
+  position: relative;
+  width: 300px;
+  height: 350px; /* Initial height */
+  background-color: #c4bfc3;
+  transition: height 0.3s ease;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden; /* Prevent text overflow */
+}
+
+.card.hovered {
+  height: 450px; /* Increase height to reveal more content */
+}
+
+.card-image {
+  width: 100%;
+  height: 330px;
+  object-fit: cover; /* Keep the image size static */
+  border-radius: 8px;
+}
+
+.card-text {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  height: 100px; /* Hidden by default */
+  background-color: #ecdfcc;
+  color: #000;
+  padding: 15px;
+  box-sizing: border-box;
+  border-radius: 0 0 8px 8px;
+  opacity: 0;
+  transform: translateY(20px); /* Slightly below the card initially */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.card.hovered .card-text {
+  opacity: 1;
+  transform: translateY(0); 
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-family: 'Yellowtail';
+  margin: 0;
+}
+
+.card-description {
+  font-size: 0.5rem;
+  margin-bottom: 5px;
+}
