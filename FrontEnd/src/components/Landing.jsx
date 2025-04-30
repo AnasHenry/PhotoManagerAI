@@ -49,7 +49,7 @@ const Landing = () => {
             <a href='#contact'>Contact</a>
           </li>
         </ul>
-        <button className='login-button' onClick={() => navigate("/adminlogin")}>
+        <button className='login-button' onClick={() => navigate("/login")}>
           Login
         </button>
       </nav>

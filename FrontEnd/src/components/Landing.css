@@ -14,6 +14,8 @@ html {
 .landing-page {
   width: 100%;
   height: 100vh;
+  scrollbar-color: #f0a500 #3c3d37; /* Thumb color followed by track color */
+  scrollbar-width: thin;
 }
 
 .navbar {
@@ -254,10 +256,4 @@ section {
     #f0a500,
     #ffbf00
   ); /* Horizontal gradient for horizontal scrollbar */
-}
-
-/* Edge for older versions of Edge (pre-Chromium) */
-body {
-  scrollbar-color: #f0a500 #3c3d37; /* Thumb color followed by track color */
-  scrollbar-width: thin; /* Width of the scrollbar */
 }

@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../axiosInstance";
 import "./Login.css";
 
 const Login = () => {
@@ -19,10 +19,12 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:5000/login", {
+      const response = await axios.post("/auth/login", {
         email,
         password,
       });
+      localStorage.setItem("accessToken", response.data.accessToken);
+      localStorage.setItem("refreshToken",response.data.refreshToken);
       setPopupMessage(response.data.message || "Login Successful");
       setShowPopup(true);
       setPopupVisible(true);
@@ -35,7 +37,7 @@ const Login = () => {
       setTimeout(() => {
         setPopupVisible(false);
       }, 1000);
-
+      navigate("/dashboard");
     } catch (error) {
       setPopupMessage("Error logging in. Please check your credentials.");
       setShowPopup(true);
