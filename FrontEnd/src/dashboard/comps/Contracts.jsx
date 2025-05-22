@@ -1,18 +1,17 @@
-import { Box } from "@mui/material";
 import {
+  Box,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   Button,
   TextField,
-  Stack,
+  Grid,
   Divider,
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../theme";
-import { contractData } from "./data";
 import { useTheme } from "@mui/material";
 import Header from "./Header";
 import axios from "../../axiosInstance";
@@ -23,6 +22,7 @@ const Contracts = () => {
 
   const [contracts, setContracts] = useState([]);
   const [open, setOpen] = useState(false);
+  
   const [eventData, setEventData] = useState({
     contractId: "",
     clientName: "",
@@ -42,12 +42,21 @@ const Contracts = () => {
         },
         withCredentials: true,
       });
-      const events = res.data;
-
-      const sortedEvents = [...events].sort(
-        (a, b) => new Date(b.date) - new Date(a.date)
-      );
-      setContracts(sortedEvents);
+      const today = new Date();
+      const updatedEvents = await Promise.all(
+        res.data.map(async (event)=> {
+          const eventDate = new Date(event.date);
+          if (event.status === "Pending" && eventDate < today){
+            await axios.put(`/events/event/${event._id}`,{
+              ...event,
+              status: "Completed",
+            });
+            return {...event, status: "Completed"};
+          }
+          return event;
+        })
+      )
+      setContracts(updatedEvents);
     } catch (err) {
       console.error("Error in fetching the contracts.: " + err);
     }
@@ -152,7 +161,7 @@ const Contracts = () => {
         <Box alignContent='center'>
           <Button
             onClick={handleClickOpen}
-            sx={{ backgroundColor: colors.primary[400] }}>
+            sx={{ backgroundColor: colors.primary[400], color: "#ffffff" }}>
             Add Event
           </Button>
         </Box>
@@ -202,71 +211,88 @@ const Contracts = () => {
             color: `${colors.primary[400]} !important`,
           },
         }}>
-        <Dialog open={open} onClose={handleClose} fullWidth maxWidth='sm'>
+        <Dialog open={open} onClose={handleClose} fullWidth maxWidth='md'>
           <DialogTitle sx={{ pt: 3, pb: 2 }}>Create or Edit Event</DialogTitle>
 
           <Divider />
 
           <DialogContent sx={{ py: 4, px: 5 }}>
-            <Stack spacing={3}>
-              <TextField
-                label='Contract ID'
-                fullWidth
-                value={eventData.contractId}
-                onChange={handleChange}
-                name='contractId'
-              />
-              <TextField
-                label='Client Name'
-                fullWidth
-                value={eventData.clientName}
-                onChange={handleChange}
-                name='clientName'
-              />
-              <TextField
-                label='Hall Name'
-                fullWidth
-                value={eventData.hallName}
-                onChange={handleChange}
-                name='hallName'
-              />
-              <TextField
-                label='Hall Location'
-                fullWidth
-                value={eventData.hallLocation}
-                onChange={handleChange}
-                name='hallLocation'
-              />
-              <TextField
-                label='Event Type'
-                fullWidth
-                value={eventData.eventType}
-                onChange={handleChange}
-                name='eventType'
-              />
-              <TextField
-                label='Date'
-                fullWidth
-                type='date'
-                value={eventData.date}
-                onChange={handleChange}
-                name='date'
-                InputLabelProps={{ shrink: true }}
-              />
-              <TextField
-                label='Fee (₹)'
-                fullWidth
-                type='number'
-                value={eventData.amountEarned}
-                onChange={handleChange}
-                name='amountEarned'
-              />
-            </Stack>
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label='Contract ID'
+                  fullWidth
+                  value={eventData.contractId}
+                  onChange={handleChange}
+                  name='contractId'
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label='Client Name'
+                  fullWidth
+                  value={eventData.clientName}
+                  onChange={handleChange}
+                  name='clientName'
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label='Hall Name'
+                  fullWidth
+                  value={eventData.hallName}
+                  onChange={handleChange}
+                  name='hallName'
+                />
+              </Grid>
+              <Grid item xs={12} sm={12} md={8}>
+                <TextField
+                  label='Hall Location'
+                  fullWidth
+                  value={eventData.hallLocation}
+                  onChange={handleChange}
+                  name='hallLocation'
+                />
+              </Grid>
+              <Grid item xs={12} md={8}>
+                <TextField
+                  label='Event Type'
+                  fullWidth
+                  value={eventData.eventType}
+                  onChange={handleChange}
+                  name='eventType'
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label='Date'
+                  fullWidth
+                  type='date'
+                  value={eventData.date}
+                  onChange={handleChange}
+                  name='date'
+                  InputLabelProps={{ shrink: true }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label='Fee (₹)'
+                  fullWidth
+                  type='number'
+                  value={eventData.amountEarned}
+                  onChange={handleChange}
+                  name='amountEarned'
+                />
+              </Grid>
+            </Grid>
           </DialogContent>
-          <DialogActions sx={{ px: 3, py: 2 }}>
+
+          <DialogActions sx={{ px: 5, py: 3 }}>
             <Box sx={{ flexGrow: 1 }} />
             <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleSave}>Save</Button>
+            <Button onClick={handleSave} variant='contained'>
+              Save
+            </Button>
           </DialogActions>
         </Dialog>
         <DataGrid

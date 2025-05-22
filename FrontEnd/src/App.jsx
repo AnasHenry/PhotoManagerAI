@@ -13,6 +13,9 @@ import Dboard from "./dashboard/comps/Dboard";
 import ProfilePage from "./dashboard/comps/Profile";
 import Calendar from "./dashboard/comps/Calendar";
 import FAQ from "./dashboard/comps/Faq";
+import Stats from "./dashboard/comps/Stats";
+import Area from "./dashboard/charts/Area";
+import Radar from "./dashboard/charts/Radar";
 // import Profile from "./contracomp/profile";
 // import Home from "./contracomp/Home";
 
@@ -30,6 +33,9 @@ function App() {
             <Route path='profile' element={<ProfilePage />} />
             <Route path='calendar' element={<Calendar />} />
             <Route path='faq' element={<FAQ />} />
+            <Route path='area' element={<Area />} />
+            <Route path='radar' element={<Radar />} />
+            <Route path='stats' element={<Stats />} />
           </Route>
           {/* <Route path='/profile' element={<Profile />} /> */}
           {/* <Route path='/home' element={<Home />} /> */}

@@ -12,11 +12,12 @@ import DataUsageOutlinedIcon from "@mui/icons-material/DataUsageOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import HelpOutlinedIcon from "@mui/icons-material/HelpOutlined";
-import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
-import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
+import RadarOutlinedIcon from '@mui/icons-material/RadarOutlined';
+import AreaChartOutlinedIcon from '@mui/icons-material/AreaChartOutlined';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import axios from "../../axiosInstance";
 import { useProfile } from "../../context/ProfileContext";
+import { useSidebar } from "../../context/SideBarContext";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -39,7 +40,8 @@ const Sidebar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  // const [isCollapsed, setIsCollapsed] = useState(false);
+  const {isCollapsed, toggleCollapse } = useSidebar();
   const [selected, setSelected] = useState("Dash");
 
   const { profile, setProfile } = useProfile();
@@ -69,6 +71,7 @@ const Sidebar = () => {
       }
     };
     fetchProfile();
+    
   }, []);
 
   return (
@@ -94,7 +97,8 @@ const Sidebar = () => {
         <Menu iconShape='square'>
           <MenuItem
             onClick={() => {
-              setIsCollapsed(!isCollapsed);
+              toggleCollapse();
+              localStorage.setItem("sidebarCollapsed", !isCollapsed);
             }}
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
             style={{ margin: "10px 0 20px 0", color: colors.redAccent[600] }}>
@@ -110,6 +114,7 @@ const Sidebar = () => {
                 <IconButton
                   onClick={() => {
                     setIsCollapsed(!isCollapsed);
+                    
                   }}>
                   <MenuOutlinedIcon />
                 </IconButton>
@@ -167,7 +172,7 @@ const Sidebar = () => {
             />
             <Item
               title='My Stats'
-              to='/invoices'
+              to='./stats'
               icon={<DataUsageOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -206,16 +211,16 @@ const Sidebar = () => {
               Charts
             </Typography>
             <Item
-              title='Pie Chart'
-              to='/pie'
-              icon={<PieChartOutlineOutlinedIcon />}
+              title='Area Chart'
+              to='./area'
+              icon={<AreaChartOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title='Bar Chart'
-              to='/bar'
-              icon={<BarChartOutlinedIcon />}
+              title='Radar Chart'
+              to='./radar'
+              icon={<RadarOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />

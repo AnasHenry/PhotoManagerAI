@@ -6,16 +6,17 @@ import { InputBase } from "@mui/material";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import axios from "../../axiosInstance";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
+  const navigate = useNavigate();
   //   console.log(colors);
   //   console.log(colorMode);
   //   console.log(theme.palette.mode)
@@ -59,7 +60,7 @@ const Navbar = () => {
             <LightModeOutlinedIcon />
           )}
         </IconButton>
-        <IconButton>
+        <IconButton onClick={() => navigate("./profile")}>
           <PersonOutlinedIcon />
         </IconButton>
         <IconButton>
