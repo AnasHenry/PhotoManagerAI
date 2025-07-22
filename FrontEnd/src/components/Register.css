@@ -27,13 +27,13 @@
     255,
     255,
     0.2
-  ); /* Light transparency for the glass effect */
+  );
   border-radius: 15px;
   padding: 30px;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(10px); /* The blur for the glass effect */
-  -webkit-backdrop-filter: blur(10px); /* Safari support */
-  border: 1px solid rgba(255, 255, 255, 0.18); /* Subtle border */
+  backdrop-filter: blur(10px); 
+  -webkit-backdrop-filter: blur(10px); 
+  border: 1px solid rgba(255, 255, 255, 0.18);
   width: 350px;
   display: flex;
   flex-direction: column;
@@ -41,7 +41,6 @@
   z-index: 2;
 }
 
-/* Input labels */
 .register-form h4 {
   font-size: 1.1rem;
   font-family: "Open Sans", sans-serif;
@@ -51,7 +50,6 @@
   font-weight: bold;
 }
 
-/* Input fields */
 .register-form input {
   width: 100%;
   padding: 12px;

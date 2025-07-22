@@ -1,15 +1,21 @@
 const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-var dotenv = require("dotenv");
+const dotenv = require("dotenv");
 const cors = require("cors");
-const app = express();
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
+
+// Routers
 const authRouter = require("./routes/auth");
 const eventRouter = require("./routes/event");
-const cookieParser = require("cookie-parser");
-const path = require("path");
-const PORT = 5000;
 
+// Load environment variables
+dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+// CORS setup
 app.use(
   cors({
     origin: "http://localhost:5173",
@@ -18,25 +24,24 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   })
 );
+
+// Middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(bodyParser.json());
-dotenv.config();
-app.use(express.urlencoded({ extended: true }));
-app.use("/uploads", express.static(path.join(__dirname, "uploads")))
 
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log("MongoDB Connected Successfully");
-  })
-  .catch(() => {
-    console.log("Check Your MDB Connection String");
-  });
+// PostgreSQL connection test (optional)
+const pool = require("./db");
+pool.connect()
+  .then(() => console.log("✅ PostgreSQL Connected"))
+  .catch((err) => console.error("❌ PostgreSQL Connection Failed:", err));
 
+// Routes
 app.use("/api/auth", authRouter);
 app.use("/api/events", eventRouter);
 
+// Start server
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });

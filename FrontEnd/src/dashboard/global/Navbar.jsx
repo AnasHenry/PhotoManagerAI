@@ -28,9 +28,9 @@ const Navbar = () => {
         { withCredentials: true }
       );
       localStorage.removeItem("accessToken");
-      console.log(response.data);
+      // console.log(response.data);
       // Handle successful logout (e.g., redirect to login page)
-      window.location.href = "/login"; // Redirect to login page
+      navigate("/login");
     } catch (error) {
       console.error("Logout failed:", error);
     }
@@ -41,16 +41,14 @@ const Navbar = () => {
       display={"flex"}
       justifyContent={"space-between"}
       p={2}
+      sx={{borderBottom: "1px solid #333333"}}
       width={"100%"}
       backgroundColor={colors.primary[400]}>
       <Box
         display={"flex"}
         backgroundColor={colors.redAccent[400]}
         borderRadius={"3px"}>
-        <InputBase sx={{ ml: 2, flex: 1 }} placeholder='Search' />
-        <IconButton type='button' sx={{ p: 1 }}>
-          <SearchIcon />
-        </IconButton>
+          {/* Insert Logo here */}
       </Box>
       <Box display={"flex"}>
         <IconButton type='button' onClick={colorMode.toggleColorMode}>

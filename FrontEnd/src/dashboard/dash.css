@@ -7,6 +7,15 @@
 .the-main{
     font-family: Source-sans-3-regular-400 sans-serif;
     display: flex;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.main-content {
+    flex-grow: 1;
+    min-width: 0;
+    transition: all 0.3s ease;
+    overflow: auto;
 }
 
 ::-webkit-scrollbar{

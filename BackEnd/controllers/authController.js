@@ -1,6 +1,5 @@
 const jwt = require("jsonwebtoken");
-const User = require("../models/user");
-const dotenv = require("dotenv");
+const pool = require("../db");
 const argon2 = require("argon2");
 
 const generateAccessToken = (userId) => {
@@ -17,7 +16,13 @@ const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await User.findOne({ email });
+    const result = await pool.query(
+      "SELECT id, fname, email, password FROM users WHERE email = $1",
+      [email]
+    );
+    // console.log(result);
+    const user = result.rows[0];
+    // console.log(user);
     if (!user) {
       return res
         .status(404)
@@ -31,8 +36,8 @@ const login = async (req, res) => {
         .json({ success: false, message: "Invalid credentials" });
     }
 
-    const accessToken = generateAccessToken(user._id);
-    const refreshToken = generateRefreshToken(user._id);
+    const accessToken = generateAccessToken(user.id);
+    const refreshToken = generateRefreshToken(user.id);
 
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
@@ -45,7 +50,7 @@ const login = async (req, res) => {
       message: "Login successful",
       accessToken,
       refreshToken,
-      user: { id: user._id, fname: user.fname, email: user.email },
+      user: { id: user.id, fname: user.fname, email: user.email },
     });
   } catch (error) {
     res.status(500).json({ success: false, message: "Server error" });
@@ -70,23 +75,23 @@ const refreshToken = async (req, res) => {
 const register = async (req, res) => {
   const { fname, lname, email, password, mobile, companyname } = req.body;
   try {
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
+    const existingUser = await pool.query(
+      "SELECT * FROM users WHERE email = $1",
+      [email]
+    );
+    if (existingUser.rows.length > 0) {
       return res.status(400).json({ message: "Email already registered" });
     }
     const hashedPassword = await argon2.hash(password, 10);
-    const newUser = new User({
-      fname,
-      lname,
-      email,
-      password: hashedPassword,
-      mobile,
-      companyname,
-    });
-    await newUser.save();
-
-    const accessToken = generateAccessToken(newUser._id);
-    const refreshToken = generateRefreshToken(newUser._id);
+    const result = await pool.query(
+      `INSERT INTO users (fname, lname, email, password, mobile, companyname)
+       VALUES ($1, $2, $3, $4, $5, $6)
+       RETURNING id, fname, companyname`,
+      [fname, lname, email, hashedPassword, mobile, companyname]
+    );
+    const user = result.rows[0];
+    const accessToken = generateAccessToken(user.id);
+    const refreshToken = generateRefreshToken(user.id);
 
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
@@ -99,11 +104,7 @@ const register = async (req, res) => {
       success: true,
       message: "User registered successfully",
       accessToken,
-      user: {
-        id: newUser._id,
-        fname: newUser.fname,
-        companyname: newUser.companyname,
-      },
+      user,
     });
   } catch (error) {
     console.error(error);
@@ -117,38 +118,73 @@ const logout = (req, res) => {
 };
 
 const getProfile = async (req, res) => {
-  const user = await User.findById(req.user.id).select("-password");
-  res.json(user);
+  const result = await pool.query(
+    "SELECT id, fname, lname, email, mobile, companyname, profilepic, mimetype FROM users WHERE id = $1",
+    [req.user.id]
+  );
+  const user = result.rows[0];
+  if (!user) return res.status(404).json({ message: "User not found" });
+
+  const hasProfilepic = !!user.profilepic;
+  res.json({
+    ...user,
+    profilepic: null,
+    hasProfilepic,
+  });
 };
 
 const updateProfile = async (req, res) => {
-  const { fname, lname, email, mobile, companyname } = req.body;
-  const profilepic = req.file ? `/uploads/${req.file.filename}` : undefined;
+  const { fname, lname, email, mobile, companyname} = req.body;
+  const profilepic = req.file?.buffer || null; // image as buffer
+  const mimetype = req.file?.mimetype || null;
   try {
-    const updateData = {
-      fname,
-      lname,
-      mobile,
-      companyname,
-    };
-    if (profilepic) {
-      updateData.profilepic = profilepic;
+    const result = await pool.query(
+      `UPDATE users SET fname=$1, lname=$2, email=$3, mobile=$4,
+       companyname=$5, profilepic=$6, mimetype=$7 WHERE id=$8 RETURNING id, fname, lname, email, mobile, companyname`,
+      [
+        fname,
+        lname,
+        email,
+        mobile,
+        companyname,
+        profilepic,
+        mimetype,
+        req.user.id, // assuming you have user info in token
+      ]
+    );
+    updatedUser = result.rows[0];
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
     }
 
-    const updatedUser = await User.findOneAndUpdate({ email }, updateData, {
-      new: true,
+    res.status(200).json({
+      message: "Profile updated successfully",
+      user: updatedUser,
     });
-    if (!updatedUser) {
-      return res.status(404).json({ message: "User not Found" });
-    }
-    res
-      .status(200)
-      .json({ message: "Profile updated successfully", user: updatedUser });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server Error" });
   }
 };
+
+const getProfilePic = async (req, res) => {
+  try {
+    console.log(req.params);
+    const result = await pool.query(
+      "SELECT profilepic, mimetype FROM users WHERE id = $1",
+      [req.params.id]
+    );
+    const user = result.rows[0];
+    if (!user || !user.profilepic) return res.sendStatus(404);
+
+    res.setHeader("Content-Type", user.mimetype);
+    res.send(user.profilepic);
+  } catch (err) {
+    console.error("Error fetching profile pic:", err);
+    res.status(500).send("Error fetching image");
+  }
+};
+
 
 module.exports = {
   login,
@@ -157,4 +193,5 @@ module.exports = {
   refreshToken,
   logout,
   updateProfile,
+  getProfilePic,
 };

@@ -37,15 +37,15 @@ const Stats = () => {
           withCredentials: true,
         });
         setStats(data);
-        console.log(data);
+        // console.log(data);
       } catch (err) {
         console.error("Failed to fetch dashboard stats:", err);
       }
     };
-    const collapsed = localStorage.getItem("isCollapsed") === "true";
+    // const collapsed = localStorage.getItem("isCollapsed") === "true";
     // setCollapsed(collapsed);
     fetchStats();
-    console.log(isCollapsed);
+    // console.log(isCollapsed);
   }, []);
 
   const percentageChange = (current, previous) => {
@@ -69,13 +69,13 @@ const Stats = () => {
     <Box
       p={3}
       borderRadius='16px'
-      backgroundColor={colors.primary[400]}
+      backgroundColor={colors.secondary[400]}
       display='flex'
       flexDirection='column'
       textAlign='center'
       alignItems='center'
-      width='100%'
       height='100%'
+      widhh='100%'
       minHeight='200px'
       sx={{
         transition: "all 0.3s ease",
@@ -111,46 +111,57 @@ const Stats = () => {
 
   return (
     <Box m='20px'>
-      <Header title='Statistics' subtitle='Your overall statistics' />
-      <Grid container spacing={3}>
-        {[
-          {
-            title: "Contracts This Month",
-            value: stats.currentMonthContracts,
-            change: contractChange,
-          },
-          {
-            title: "Earnings This Month",
-            value: `₹${stats.currentMonthEarnings}`,
-            change: earningsChange,
-          },
-          {
-            title: "Upcoming Events",
-            value: stats.upcomingEvents,
-          },
-          {
-            title: "Pending Payments",
-            value: stats.pendingPayments,
-          },
-          {
-            title: "Top Booked Venue",
-            value: stats.topVenue || "N/A",
-          },
-          {
-            title: "Client Feedback",
-            value: stats.feedbackSummary,
-          },
-        ].map((item, idx) => (
-          <MotionBox
-            animate={{ width: isCollapsed ? "350px" : "300px" }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-            minWidth='300px'>
-            <Box width='100%' minWidth='300px'>
-              <StatCard {...item} />
-            </Box>
-          </MotionBox>
-        ))}
-      </Grid>
+      <style>
+        {`@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap');`}
+      </style>
+
+      {/* Apply font only inside this component */}
+      <div
+        style={{
+          fontFamily: "'Source Sans Pro', sans-serif",
+        }}>
+        <Header title='Statistics' subtitle='Your overall statistics' />
+        <Grid container spacing={3}>
+          {[
+            {
+              title: "Contracts This Month",
+              value: stats.currentMonthContracts,
+              change: contractChange,
+            },
+            {
+              title: "Earnings This Month",
+              value: `₹${stats.currentMonthEarnings}`,
+              change: earningsChange,
+            },
+            {
+              title: "Upcoming Events",
+              value: stats.upcomingEvents,
+            },
+            {
+              title: "Pending Payments",
+              value: stats.pendingPayments,
+            },
+            {
+              title: "Top Booked Venue",
+              value: stats.topVenue || "N/A",
+            },
+            {
+              title: "Client Feedback",
+              value: stats.feedbackSummary,
+            },
+          ].map((item, idx) => (
+            <MotionBox
+              key={idx}
+              animate={{ width: isCollapsed ? "350px" : "300px" }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              minWidth='300px'>
+              <Box width='100%' minWidth='300px'>
+                <StatCard {...item} />
+              </Box>
+            </MotionBox>
+          ))}
+        </Grid>
+      </div>
     </Box>
   );
 };

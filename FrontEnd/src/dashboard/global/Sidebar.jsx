@@ -64,7 +64,7 @@ const Sidebar = () => {
           fname: response.data.fname,
           lname: response.data.lname,
           companyname: response.data.companyname,
-          profilepic: "http://localhost:5000" + response.data.profilepic,
+          profilepic: `http://localhost:5000/api/auth/profilepic/${response.data.id}`,
         });
       } catch (error) {
         console.error("Error fetching profile:", error);
@@ -77,6 +77,7 @@ const Sidebar = () => {
   return (
     <Box
       sx={{
+        borderRight: "1px solid #333333",
         "& .pro-sidebar-inner": {
           background: `${colors.primary[400]} !important`,
         },
@@ -87,7 +88,7 @@ const Sidebar = () => {
           padding: "5px 35px 5px 20px !important",
         },
         "&. pro-inner-item:hover": {
-          color: "#868dfb !important",
+          color: `${colors.primary[800]} !important`,
         },
         "&. pro-menu-item.active": {
           color: "#6870fa !important",
@@ -108,13 +109,12 @@ const Sidebar = () => {
                 justifyContent={"space-between"}
                 alignItems={"center"}
                 ml={"15px"}>
-                <Typography variant='h5' color={colors.redAccent[400]}>
+                <Typography variant='h5' color={colors.whiteAccent[400]}>
                   PHOTO MANA AI
                 </Typography>
                 <IconButton
                   onClick={() => {
-                    setIsCollapsed(!isCollapsed);
-                    
+                    toggleCollapse();
                   }}>
                   <MenuOutlinedIcon />
                 </IconButton>
@@ -138,7 +138,7 @@ const Sidebar = () => {
               <Box textAlign={"center"}>
                 <Typography
                   variant='h2'
-                  color={colors.whiteAccent[200]}
+                  color={colors.whiteAccent[400]}
                   fontWeight={"bold"}
                   sx={{ m: "10px 0 0 0 " }}>
                   {profile.fname} {profile.lname}
